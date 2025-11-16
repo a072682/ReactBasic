@@ -7,6 +7,8 @@ import './_DefaultSwiper.scss'; // 引入強化樣式
 export default function DefaultSwiper() {
   return (
     <>
+        {/* 外層的容器需要具體設定寬度不可使用百分比
+        如果要使用百分比的話要使用position進行定位 */}
         {/* 元件最外圍 */}
         <Swiper
         className='swiper'
