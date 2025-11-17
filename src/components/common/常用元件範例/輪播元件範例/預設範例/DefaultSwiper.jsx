@@ -47,7 +47,7 @@ export default function DefaultSwiper() {
                     //讓頁碼按鈕可以被點擊
                     clickable: true,
                     //頁碼按鈕
-                    el: '.swiper-pagination',
+                    el: paginationRef.current,
                 }}
                 navigation={{
                     //右頁按鈕
