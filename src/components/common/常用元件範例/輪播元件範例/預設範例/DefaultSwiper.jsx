@@ -6,8 +6,17 @@ import './_DefaultSwiper.scss'; // 引入強化樣式
 
 export default function DefaultSwiper() {
 
-    const [mainSwiper, setMainSwiper] = useState(null);
-    useEffect(()=>{console.log("更新",mainSwiper?.realIndex)},[mainSwiper])
+    //#region
+    //#endregion
+
+    //#region 儲存swiper本身資料狀態
+        const [mainSwiper, setMainSwiper] = useState(null);
+        useEffect(()=>{console.log("更新",mainSwiper?.realIndex)},[mainSwiper]);
+    //#endregion
+
+    //#region 控制輪播點目標宣告
+        const paginationRef = useRef(null);
+    //#endregion
 
     return (
         <>
@@ -15,33 +24,44 @@ export default function DefaultSwiper() {
             如果要使用百分比的話要使用position進行定位 */}
             {/* 元件最外圍 */}
             <Swiper
-            className='swiper'
-            modules={[Navigation, Pagination]}//需要用到的模組
-            onSwiper={(swiper) => setMainSwiper({ ...swiper })}
-            onSlideChange={(swiper) => setMainSwiper({ ...swiper })}
-            slidesPerView={1}//顯示的輪播片數量
-            centeredSlides={true}//輪播片置中
-            loop={true}//開啟輪播片循環
-            spaceBetween={8}//輪播片間隔距離(單位:px)
-            pagination={{
-                //讓頁碼按鈕可以被點擊
-                clickable: true,
-                //頁碼按鈕
-                el: '.swiper-pagination',
-            }}
-            navigation={{
-                //右頁按鈕
-                nextEl: '.swiper-button-next',
-                //左頁按鈕
-                prevEl: '.swiper-button-prev',
-            }}
-            breakpoints={{
-                //斷點
-                992: {
-                spaceBetween: 40,
-                slidesPerView: 1,
-                }
-            }}
+                className='swiper'
+                modules={[Navigation, Pagination]}//需要用到的模組
+                onSwiper={(swiper) => {
+                        // 更新 state
+                        setMainSwiper({ ...swiper });
+
+                        // 重新綁定 pagination 的 DOM
+                        swiper.params.pagination.el = paginationRef.current;
+
+                        // 重新初始化 pagination
+                        swiper.pagination.init();
+                        swiper.pagination.render();
+                        swiper.pagination.update();
+                    }}
+                onSlideChange={(swiper) => setMainSwiper({ ...swiper })}
+                slidesPerView={1}//顯示的輪播片數量
+                centeredSlides={true}//輪播片置中
+                loop={true}//開啟輪播片循環
+                spaceBetween={8}//輪播片間隔距離(單位:px)
+                pagination={{
+                    //讓頁碼按鈕可以被點擊
+                    clickable: true,
+                    //頁碼按鈕
+                    el: '.swiper-pagination',
+                }}
+                navigation={{
+                    //右頁按鈕
+                    nextEl: '.swiper-button-next',
+                    //左頁按鈕
+                    prevEl: '.swiper-button-prev',
+                }}
+                breakpoints={{
+                    //斷點
+                    992: {
+                    spaceBetween: 40,
+                    slidesPerView: 1,
+                    }
+                }}
             >
             {[1,2,3,4,5].map((item,num) => (
                 // 輪播片本體
@@ -57,7 +77,7 @@ export default function DefaultSwiper() {
                 {/* 頁碼按鈕 */}
                 {/* 空的為正常 */}
                 {/* 套件會自動填充 */}
-                <div className="swiper-pagination"></div>
+                <div ref={paginationRef} className="swiper-pagination"></div>
                 {/* 頁碼按鈕 */}
 
                 {/* 左右頁按鈕 */}
