@@ -9,3 +9,4 @@ react-redux
 react-router-dom
 framer-motion
 swiper
+GitHub Pages
