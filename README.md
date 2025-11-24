@@ -10,3 +10,5 @@ react-router-dom
 framer-motion
 swiper
 GitHub Pages
+
+全局modal功能增加
