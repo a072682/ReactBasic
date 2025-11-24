@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import modalReducer from "./slice/modalSlice";
-import testReducer from "./slice/testSlicejs";
+import testReducer from "./slice/testSlice.js";
 
 export const store = configureStore({
     reducer: { // 必要加入 reducer
