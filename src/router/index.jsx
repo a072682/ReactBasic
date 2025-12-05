@@ -24,7 +24,7 @@ const router = createHashRouter([ //createHashRouter為建立router的方法
                 element: <Page0 />,
             },
             {
-                path: "Page1",
+                path: "Page/:id",
                 element: <Page1 />,
             },
         ]
